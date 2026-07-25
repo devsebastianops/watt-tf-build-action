@@ -37,9 +37,13 @@ runs:
   steps:
   - name: Setup Watt TF
     shell: bash
-    env:
-      VERSION: ${{ inputs.version }}
     run: |
+      if [ "${{ inputs.version }}" = "latest" ]; then
+        echo "Installing latest version of Watt TF"
+      else
+        echo "Installing Watt TF version: ${{ inputs.version }}"
+        export VERSION=${{ inputs.version }}
+      fi
       curl -sSL https://raw.githubusercontent.com/devsebastianops/watt-tf/main/install.sh | bash
   - name: Run Watt TF
     shell: bash
