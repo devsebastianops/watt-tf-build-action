@@ -49,7 +49,7 @@ runs:
     shell: bash
     run: |
       # Build the command with required inputs
-      CMD="watt build --input '${{ inputs.input }}' --blueprint '${{ inputs.blueprint }}' --output '${{ inputs.output }}'"
+      CMD="wtf build --input '${{ inputs.input }}' --blueprint '${{ inputs.blueprint }}' --output '${{ inputs.output }}'"
 
       # Optional: schema input
       if [ -n "${{ inputs.schema }}" ]; then
