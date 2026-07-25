@@ -31,6 +31,10 @@ inputs:
     description: 'Run Watt TF build with strip-nulls flag'
     required: false
     default: 'false'
+  logFormat:
+    description: 'Optional log format (json or text)'
+    required: false
+    default: 'text'
   
 runs:
   using: composite
@@ -65,6 +69,17 @@ runs:
       if [ "${{ inputs.stripNulls }}" = "true" ]; then
         CMD="$CMD --strip-nulls"
       fi
+
+      # Log format
+      if [ -n "${{ inputs.logFormat }}" ]; then
+        CMD="$CMD --log-format '${{ inputs.logFormat }}'"
+      fi
+
+      # Verbose output if runner is in debug mode or ACTIONS_RUNNER_DEBUG is set to true
+      if [ "${{ runner.debug }}" = "true" ] || [ "${ACTIONS_RUNNER_DEBUG}" = "true" ]; then
+        CMD="$CMD --verbose"
+      fi
+
 
       echo "Executing: $CMD"
       eval $CMD
