@@ -1,0 +1,66 @@
+name: Watt TF Action
+description: Run Watt TF directly inside GitHub Actions
+author: devsebastianops
+
+branding:
+  color: orange
+  icon: zap
+
+inputs:
+  version: 
+    description: 'The version of Watt TF to use (e.g. latest or v1.0.0)'
+    required: false
+    default: 'latest'
+  input:
+    description: 'The input file as JSON or YAML'
+    required: true
+  blueprint:
+    description: 'The blueprint with the transformation rules'
+    required: true
+  output: 
+    description: 'Where should Watt TF put the .tf.json result'
+    required: true
+  schema:
+    description: 'Optional JSON schema file for input validation'
+    required: false
+  strict:
+    description: 'Run Watt TF build in strict mode'
+    required: false
+    default: 'false'
+  stripNulls: 
+    description: 'Run Watt TF build with strip-nulls flag'
+    required: false
+    default: 'false'
+  
+runs:
+  using: composite
+  steps:
+  - name: Setup Watt TF
+    shell: bash
+    env:
+      VERSION: ${{ inputs.version }}
+    run: |
+      curl -sSL https://raw.githubusercontent.com/devsebastianops/watt-tf/main/install.sh | bash
+  - name: Run Watt TF
+    shell: bash
+    run: |
+      # Build the command with required inputs
+      CMD="watt build --input '${{ inputs.input }}' --blueprint '${{ inputs.blueprint }}' --output '${{ inputs.output }}'"
+
+      # Optional: schema input
+      if [ -n "${{ inputs.schema }}" ]; then
+        CMD="$CMD --schema '${{ inputs.schema }}'"
+      fi
+
+      # Optional: strict mode
+      if [ "${{ inputs.strict }}" = "true" ]; then
+        CMD="$CMD --strict"
+      fi
+
+      # Optional: strip-nulls
+      if [ "${{ inputs.stripNulls }}" = "true" ]; then
+        CMD="$CMD --strip-nulls"
+      fi
+
+      echo "Executing: $CMD"
+      eval $CMD
