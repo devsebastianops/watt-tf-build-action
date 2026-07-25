@@ -2,7 +2,7 @@
     <h1>Watt TF Build Action</h1>
     <p>Simply run Watt TF from your GitHub Actions workflow.</p>
     <p>
-        <a href="https://github.com/devsebastianops/watt-tf-build-action/actions"><img src="https://img.shields.io/github/actions/workflow/status/devsebastianops/watt-tf-build-action/on-pull-request-ci.yaml?branch=main&style=flat-square" alt="CI Status"></a>
+        <a href="https://github.com/devsebastianops/watt-tf-build-action/actions"><img src="https://img.shields.io/github/actions/workflow/status/devsebastianops/watt-tf-build-action/on-pull-test-action.yaml?branch=main&style=flat-square" alt="CI Status"></a>
         <a href="https://github.com/devsebastianops/watt-tf-build-action/releases"><img src="https://img.shields.io/github/v/release/devsebastianops/watt-tf-build-action?style=flat-square" alt="Latest Release"></a>
         <a href="https://github.com/devsebastianops/watt-tf-build-action/blob/main/LICENSE"><img src="https://img.shields.io/github/license/devsebastianops/watt-tf-build-action?style=flat-square" alt="License"></a>
     </p>
