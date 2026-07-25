@@ -35,6 +35,8 @@ jobs:
       
       - name: Compare actual and expected output
         run: |
+          echo "" >> ./watt-tf-source/example/18-schema-validation/actual.tf.json
+
           if diff -u ./watt-tf-source/example/18-schema-validation/expected.tf.json ./watt-tf-source/example/18-schema-validation/actual.tf.json; then
             echo "No differences found. Test passed."
           else
