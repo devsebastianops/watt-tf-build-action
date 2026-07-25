@@ -76,7 +76,7 @@ runs:
       fi
 
       # Verbose output if runner is in debug mode or ACTIONS_RUNNER_DEBUG is set to true
-      if [ "${{ runner.debug }}" = "true" ] || [ "${ACTIONS_RUNNER_DEBUG}" = "true" ]; then
+      if [ "${{ runner.debug }}" = "1" ] || [ "${ACTIONS_RUNNER_DEBUG}" = "true" ]; then
         CMD="$CMD --verbose"
       fi
 
