@@ -22,6 +22,16 @@ jobs:
           repository: devsebastianops/watt-tf
           path: watt-tf-source
 
+      - name: What is currently where
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "Contents of the current directory:"
+          ls -la
+          echo "Contents of watt-tf-source directory:"
+          ls -la watt-tf-source
+          echo "Contents of watt-tf-source/examples/18-schema-validation directory:"
+          ls -la watt-tf-source/examples/18-schema-validation
+
       - name: Run Watt TF Action 
         uses: ./
         with:
