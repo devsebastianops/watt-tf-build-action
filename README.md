@@ -27,6 +27,7 @@
 | `schema` | Optional JSON schema file for input validation | `false` | |
 | `strict` | Run Watt TF build in strict mode | `false` | `'false'` |
 | `stripNulls` | Run Watt TF build with strip-nulls flag | `false` | `'false'` |
+| `logFormat` | Optional log format (json or text) | `false` | `'text'` |
 
 ---
 
