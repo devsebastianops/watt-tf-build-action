@@ -1,0 +1,45 @@
+name: On Pull Request Test Action
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+  
+jobs:
+  ci: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Checkout Watt TF examples
+        uses: actions/checkout@v7
+        with:
+          repository: devsebastianops/watt-tf
+          path: watt-tf-source
+
+      - name: Run Watt TF Action 
+        uses: ./
+        with:
+          version: 'latest'
+          input: './watt-tf-source/example/18-schema-validation/input.json'
+          blueprint: './watt-tf-source/example/18-schema-validation/blueprint.yaml'
+          output: './watt-tf-source/example/18-schema-validation/actual.tf.json'
+          schema: './watt-tf-source/example/18-schema-validation/schema.json'
+          strict: "true"
+          stripNulls: "true"
+      
+      - name: Compare actual and expected output
+        run: |
+          echo "" >> ./watt-tf-source/example/18-schema-validation/actual.tf.json
+
+          if diff -u ./watt-tf-source/example/18-schema-validation/expected.tf.json ./watt-tf-source/example/18-schema-validation/actual.tf.json; then
+            echo "No differences found. Test passed."
+          else
+            echo "Differences found between expected and actual output!"
+            exit 1
+          fi
