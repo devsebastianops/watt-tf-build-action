@@ -22,30 +22,20 @@ jobs:
           repository: devsebastianops/watt-tf
           path: watt-tf-source
 
-      - name: What is currently where
-        run: |
-          echo "Current working directory: $(pwd)"
-          echo "Contents of the current directory:"
-          ls -la
-          echo "Contents of watt-tf-source directory:"
-          ls -la watt-tf-source
-          echo "Contents of watt-tf-source/examples/18-schema-validation directory:"
-          ls -la watt-tf-source/examples/18-schema-validation
-
       - name: Run Watt TF Action 
         uses: ./
         with:
           version: 'latest'
-          input: './watt-tf-source/examples/18-schema-validation/input.json'
-          blueprint: './watt-tf-source/examples/18-schema-validation/blueprint.yaml'
-          output: './watt-tf-source/examples/18-schema-validation/actual.tf.json'
-          schema: './watt-tf-source/examples/18-schema-validation/schema.json'
+          input: './watt-tf-source/example/18-schema-validation/input.json'
+          blueprint: './watt-tf-source/example/18-schema-validation/blueprint.yaml'
+          output: './watt-tf-source/example/18-schema-validation/actual.tf.json'
+          schema: './watt-tf-source/example/18-schema-validation/schema.json'
           strict: "true"
           stripNulls: "true"
       
       - name: Compare actual and expected output
         run: |
-          diff_result=$(diff -u ./watt-tf-source/examples/18-schema-validation/expected.tf.json ./watt-tf-source/examples/18-schema-validation/actual.tf.json)
+          diff_result=$(diff -u ./watt-tf-source/example/18-schema-validation/expected.tf.json ./watt-tf-source/example/18-schema-validation/actual.tf.json)
           if [ -n "$diff_result" ]; then
             echo "Differences found between expected and actual output:"
             echo "$diff_result"
